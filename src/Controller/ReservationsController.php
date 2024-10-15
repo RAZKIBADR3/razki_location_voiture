@@ -42,7 +42,7 @@ class ReservationsController extends AbstractController
     }
 
     #[Route('/api/reservations', name: 'api_reservations_store', methods: ['POST'])]
-    public function store(Request $request): Response
+    public function storeReservation(Request $request): Response
     {
         // get request parameters
         $parameters = [

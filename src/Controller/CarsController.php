@@ -31,7 +31,7 @@ class CarsController extends AbstractController
     }
 
     #[Route('/api/cars', name: 'api_cars', methods: ['GET'])]
-    public function list(): Response
+    public function showCars(): Response
     {
         // user ListAvaibleCars Service to list avaible cars
         $cars = $this->carListAvaibleCarsService->listAvaibleCars();
@@ -40,7 +40,7 @@ class CarsController extends AbstractController
     }
 
     #[Route('/api/cars/{id}', name: 'api_car', methods: ['GET'])]
-    public function show(int $id): Response
+    public function showCar(int $id): Response
     {
         // use car get Service to show car by id
         $car = $this->carGetDetailsService
