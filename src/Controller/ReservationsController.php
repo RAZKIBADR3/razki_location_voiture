@@ -52,8 +52,8 @@ class ReservationsController extends AbstractController
         ];
         // parameters validation
         foreach ($parameters as $param){
-            if (!$param) return $this->json(['response' => 'Reservation failed', 
-                    'message' => "request parameters are required (dateDebut, dateFin, carId)."]);
+            if (!$param) return $this->json(['response' => 'failed', 'status' => 400, 
+                    'message' => "Reservation failed, request parameters are required (dateDebut, dateFin, carId)."]);
         }
 
         // prepare datetime parameters
@@ -64,7 +64,7 @@ class ReservationsController extends AbstractController
         $validated = $this->reservationIsDateValidatedService
             ->isReservationDateValidated($dateDebut, $dateFin);
         if(!$validated){
-            return $this->json(['response' => 'Reservation failed', 'message' => "start date shouldn't be greater than end date."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Reservation failed, start date shouldn't be greater than end date."]);
         }
         
         // get car by its id
@@ -76,7 +76,7 @@ class ReservationsController extends AbstractController
         $reserved = $this->reservationCheckIfCarReservedService
             ->checkIfCarReserved($car, $dateDebut, $dateFin);
         if($reserved){
-            return $this->json(['response' => 'Reservation failed', 'message' => "this car is already reserved in this date."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Reservation failed, this car is already reserved in this date."]);
         }
 
         // get authenticated user
@@ -87,7 +87,7 @@ class ReservationsController extends AbstractController
             ->storeReservation($dateDebut, $dateFin, $car, $user);
         
         // return json response
-        return $this->json(['response' => 'Reservation successful.']);
+        return $this->json(['response' => 'success', 'status' => 200, 'message' => 'Reservation created successfully.']);
     }
 
     #[Route('/api/reservations/{id}', name: 'api_reservations_update', methods: ['PUT'])]
@@ -101,8 +101,8 @@ class ReservationsController extends AbstractController
         ];
         // parameters validation
         foreach ($parameters as $param){
-            if (!$param) return $this->json(['response' => 'Reservation update failed', 
-                    'message' => "request parameters are required (dateDebut, dateFin, carId)."]);
+            if (!$param) return $this->json(['response' => 'failed', 'status' => 400, 
+                    'message' => "Reservation update failed, request parameters are required (dateDebut, dateFin, carId)."]);
         }
 
         // get the reservation
@@ -114,7 +114,7 @@ class ReservationsController extends AbstractController
 
         // compare the reservation user and the authenticated user, return response failed in contrast case
         if($user != $this->getUser()){
-            return $this->json(['response' => 'response update failed', 'message' => "This user should not updated other users' reservations."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Reservation update failed, This user should not updated other users' reservations."]);
         }
 
         // prepare datetime parameters
@@ -125,7 +125,7 @@ class ReservationsController extends AbstractController
         $validated = $this->reservationIsDateValidatedService
             ->isReservationDateValidated($dateDebut, $dateFin);
         if(!$validated){
-            return $this->json(['response' => 'Reservation update failed', 'message' => "start date shouldn't be greater than end date."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Reservation update failed, start date shouldn't be greater than end date."]);
         }
 
         // get car by its id
@@ -137,7 +137,7 @@ class ReservationsController extends AbstractController
         $this->reservationUpdateService
             ->updateReservation($reservation, $car, $dateDebut, $dateFin);
 
-        return $this->json(['response' => 'Reservation updated successfully.']);
+        return $this->json(['response' => 'success', 'status' => 200, 'message' => 'Reservation updated successfully.']);
     }
 
     #[Route('/api/reservations/{id}', name: 'api_reservations_delete', methods: ['DELETE'])]
@@ -152,7 +152,7 @@ class ReservationsController extends AbstractController
 
         // compare the reservation user and the authenticated user, return response failed in contrast case
         if($user != $this->getUser()){
-            return $this->json(['response' => 'response failed', 'message' => "This user should not delete other users' reservations."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Reservation delete failed, This user should not delete other users' reservations."]);
         }
 
         // delete reservation
@@ -160,7 +160,7 @@ class ReservationsController extends AbstractController
         $this->entityManager->flush();
 
         // return json response
-        return $this->json(['response' => 'Reservation deleted successfully.']);
+        return $this->json(['response' => 'success', 'status' => 200, 'message' => 'Reservation deleted successfully.']);
     }
 
 }
