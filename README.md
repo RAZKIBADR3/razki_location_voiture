@@ -24,6 +24,9 @@
       * user[id, email, roles, password]
       * car[id, nom, prix, model, entreprise, color]
       * reservation[id, car_id, user_id, date_debut, date_fin]
+    - login fields:
+      * email
+      * password
       
   * Configuration:
     - for database user privileges you should have adkomo user with password [adkomoroot2024], alternatively use root user, in config .env:
