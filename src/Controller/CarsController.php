@@ -36,7 +36,7 @@ class CarsController extends AbstractController
         // user ListAvaibleCars Service to list avaible cars
         $cars = $this->carListAvaibleCarsService->listAvaibleCars();
         // return json response
-        return $this->json(['response' => 'success', 'result' => $cars]);
+        return $this->json(['response' => 'success', 'status' => 200, 'result' => $cars]);
     }
 
     #[Route('/api/cars/{id}', name: 'api_car', methods: ['GET'])]
@@ -47,6 +47,6 @@ class CarsController extends AbstractController
             ->getCarDetails($id);
 
         // return json response
-        return $this->json(['response' => 'success', 'result' => $car]);
+        return $this->json(['response' => 'success', 'status' => 200, 'result' => $car]);
     }
 }
