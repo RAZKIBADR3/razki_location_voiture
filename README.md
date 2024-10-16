@@ -29,7 +29,7 @@
       * password
       
   * Configuration:
-    - for database user privileges you should have adkomo user with password [adkomoroot2024], alternatively use root user, in config .env:
+    - for database user privileges you should have adkomo user with password [adkomoroot2024], alternatively use root user, in .env configuration file replace DATAVASE_URL with:
       * DATABASE_URL="mysql://root@127.0.0.1:3306/adkomo_location?serverVersion=8&charset=utf8mb4"
 
     - create database by:
