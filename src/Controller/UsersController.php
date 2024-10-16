@@ -34,13 +34,13 @@ class UsersController extends AbstractController
         
         // compare the selected user(id) and the authenticated user, return response failed in contrast case
         if($user != $this->getUser()){
-            return $this->json(['response' => 'response failed', 'message' => "This user should not see other users' reservations."]);
+            return $this->json(['response' => 'failed', 'status' => 400, 'message' => "Response failed, this user should not see other users' reservations."]);
         }
 
         // get reservations that belong to user
         $reservations = $this->userReservationsService->getUserReservations($user);
 
         // return json response
-        return $this->json(['response' => 'success', 'result' => $reservations]);
+        return $this->json(['response' => 'success', 'status' => 200, 'result' => $reservations]);
     }
 }
