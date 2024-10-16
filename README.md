@@ -18,7 +18,7 @@
 
 * database:
   * information:
-    - databse name:
+    - database name:
       * adkomo_location
     - tabels:
       * user[id, email, roles, password]
