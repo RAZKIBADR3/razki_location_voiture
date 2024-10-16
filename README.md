@@ -10,11 +10,11 @@
       * [DELETE] /api/reservations/{id}
    
    * configuration:
-    - to install modules and packages:
-     # composer update
+      - to install modules and packages:
+       # composer update
   
-    - create JWT keys(public,private):
-     # symfony console lexik:jwt:generate-keypair
+      - create JWT keys(public,private):
+       # symfony console lexik:jwt:generate-keypair
 
 * database:
   * information:
